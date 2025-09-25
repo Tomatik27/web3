@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Задание 3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <img src="logo.png" alt="Логотип сайта" width="50" height="50">
+                </div>
+                <h1 class="site-title">Сайт</h1>
+            </div>
+            <nav>
+                <a href="#">Ссылка меню 1</a>
+                <a href="#">Ссылка 2</a>
+                <a href="#">Ссылка 3</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="links-section">
+            <h2>Список гиперссылок</h2>
+                <ul>
+                    <li><a href="http://kubsu.ru">1. КубГУ (HTTP)</a></li>
+                
+                    <li><a href="https://kubsu.ru">2. КубГУ (HTTPS)</a></li>
+                
+                    <li><a href="https://kubsu.ru">3.
+                        <img src="kubsu.jpg" alt="Ссылка в фото" style="width:300px"> 
+                    </a></li>
+                    
+                    <li><a href="internal.html">4. Внутренняя страница</a></li>
+                    
+                    <li><a href="/">5. Внутренняя ссылка</a></li>    
+
+                    <li><a href="#top">6. Вернуться наверх</a></li>
+
+                    <li><a href="https://kubsu.ru/?faculty=fctipm&area=mo&group=22">7. Три параметра</a></li>
+
+                    <li><a href="https://moodle.kubsu.ru/course/view.php?id=780">8. Ссылка c id</a></li>
+
+                    <li><a href="./">9. Страница в текущем каталоге</a></li>
+                    
+                    <li><a href="about/">10. Каталог about</a></li>
+
+                    <li><a href="../">11. Каталог уровнем выше</a></li>
+
+                    <li><a href="../../">12. Каталог на 2 уровня выше</a></li>
+
+                    <li><p>13. Сайт <a href="https://kubsu.ru">КубГУ</a> хороший</p></li>
+
+                    <li><a href="https://ru.wikipedia.org/wiki/Философия#Логика">14. Ccылка на фрагмент</a></li>
+
+                    <li>
+                        15.
+                        <img src="kubsu2.jpg" alt="Ссылки из прямоугольных и круглых областей картинки" usemap="#image-map">
+
+                        <map name="image-map">
+                            <area alt="фрагмент с рукой" title="Hand" href="https://ru.wikipedia.org/wiki/Рука" coords="42,61,316,270" shape="rect">
+                            <area alt="фрагмент с ногой" title="Foot" href="https://ru.wikipedia.org/wiki/Нога" coords="537,170,139" shape="circle">
+                        </map>
+                    </li>
+
+                    <li><a href="">16. Cсылка с пустым href</a></li>
+
+                    <li><a>17. Cсылка без href</a></li>
+
+                    <li><a href="https://kubsu.ru" rel="nofollow">18. Ссылка с запретом для поисковиков</a></li>
+
+                    <li><a href="https://kubsu.ru" rel="noindex">19. Ссылка с запретом для индексации</a></li>
+
+                    <li>20. Нумерованный список:
+                        <ol>
+                            <li><a href="https://kubsu.ru">КубГУ</a></li>
+                            <li><a href="https://ru.wikipedia.org/wiki/Философия#Логика">Философия</a></li>
+                            <li><a href="https://ru.wikipedia.org/wiki/Рука">Рука</a></li>
+                        </ol>
+                    </li>
+
+                    <li><a href="ftp://user:password@ftp.example.com/path/to/file.txt" title="Файл на FTP-сервере">21. Ссылка на файл на сервере FTP с авторизацией:</a></li>
+                </ul>
+        </section>
+
+        <section id="table-section">
+            <h2>Таблица</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Колонка 1</th>
+                        <th>Колонка 2</th>
+                        <th>Колонка 3</th>
+                        <th>Колонка 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ячейка 1</td>
+                        <td>Ячейка 2</td>
+                        <td>Ячейка 3</td>
+                        <td>Ячейка 4</td>
+                    </tr>
+                    <tr>
+                        <td>Ячейка 5</td>
+                        <td colspan="2">Объединенная ячейка 6-7</td>
+                        <td>Ячейка 8</td>
+                    </tr>
+                    <tr>
+                        <td>Ячейка 9</td>
+                        <td>Ячейка 10</td>
+                        <td>Ячейка 11</td>
+                        <td rowspan="2">Объединенная ячейка 12-16</td>
+                    </tr>
+                    <tr>
+                        <td>Ячейка 13</td>
+                        <td>Ячейка 14</td>
+                        <td>Ячейка 15</td>
+                    </tr>
+                    <tr>
+                        <td>Ячейка 17</td>
+                        <td>Ячейка 18</td>
+                        <td colspan="2">Объединенная ячейка 19-20</td>
+                    </tr>
+                    <tr>
+                        <td>Ячейка 21</td>
+                        <td>Ячейка 22</td>
+                        <td>Ячейка 23</td>
+                        <td>Ячейка 24</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="form-section">
+            <h2>Форма</h2>
+            <form>
+                <div>
+                    <label>1. ФИО (текстовое поле):<br/>
+                    <input name="fio" placeholder="Введите ваше ФИО" required /></label><br/><br/>
+                </div>
+
+                <div>
+                    <label for="phone">2. Телефон:</label><br/>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required><br/><br/>
+                </div>
+
+                <div>
+                    <label for="email">3. Поле email:<br />
+                        <input type="email" id="email" name="email" placeholder="example@mail.com" required />
+                    </label><br /><br />
+                </div>
+
+                <div>
+                    <label for="birthdate">4. Дата рождения:<br />
+                        <input type="date" id="birthdate" name="birthdate" required />
+                    </label><br /><br />
+                </div>
+
+                <div>
+                    <label>5. Пол (радиокнопки):</label><br />
+                    <label><input type="radio" name="gender" value="male" required /> Мужской</label>
+                    <label><input type="radio" name="gender" value="female" /> Женский</label><br /><br />
+                </div>
+
+                <div>
+                    <label for="languages">6. Любимый язык программирования (множественный выбор):<br />
+                        <select id="languages" name="languages" multiple required>
+                            <option value="pascal">Pascal</option>
+                            <option value="c">C</option>
+                            <option value="cpp">C++</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="php">PHP</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="haskel">Haskel</option>
+                            <option value="clojure">Clojure</option>
+                            <option value="prolog">Prolog</option>
+                            <option value="scala">Scala</option>
+                        </select>
+                    </label><br /><br />
+                </div>
+
+                <div>
+                    <label for="bio">7. Биография (многострочное текстовое поле):<br />
+                        <textarea id="bio" name="bio" placeholder="Расскажите о себе" required></textarea>
+                    </label><br /><br />
+                </div>
+
+                <div>
+                    <label for="agreement">8. Чекбокс:<br />
+                    <input type="checkbox" id="agreement" name="agreement" required />
+                    С контрактом ознакомлен(а)</label><br /><br />
+                </div>
+
+                <div>
+                    <button type="submit">9. Сохранить</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>(с) Сергей Синица</p>
+        </div>
+    </footer>
+</body>
+</html>
