@@ -8,14 +8,14 @@ $pass = '4483607';
 
 // Функция для вывода ошибки и остановки скрипта
 function showError($message) {
-    echo '<div class="error-message">Error' . htmlspecialchars($message) . '</div>';
+    echo '<div class="error-message">Error has occured. ' . htmlspecialchars($message) . '</div>';
     echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
     exit();
 }
 
 // Функция для вывода успешного сообщения
 function showSuccess($message) {
-    echo '<div class="success-message">Ok ' . htmlspecialchars($message) . '</div>';
+    echo '<div class="success-message">Everything fine! ' . htmlspecialchars($message) . '</div>';
     echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
     exit();
 }
