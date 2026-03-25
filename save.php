@@ -1,31 +1,28 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 
+// Параметры подключения для u82279
 $host = 'localhost';
 $dbname = 'u82279';
 $user = 'u82279';
-$pass = '4483607';
+$pass = 'ВАШ_ПАРОЛЬ';  // Вставьте свой пароль
 
-// Функция для вывода ошибки и остановки скрипта
 function showError($message) {
-    echo '<div class="error-message">Error has occured. ' . htmlspecialchars($message) . '</div>';
+    echo '<div class="error-message">❌ ' . htmlspecialchars($message) . '</div>';
     echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
     exit();
 }
 
-// Функция для вывода успешного сообщения
 function showSuccess($message) {
-    echo '<div class="success-message">Everything fine! ' . htmlspecialchars($message) . '</div>';
+    echo '<div class="success-message">✅ ' . htmlspecialchars($message) . '</div>';
     echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
     exit();
 }
 
-// Проверяем, что форма отправлена методом POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     showError('Некорректный метод запроса');
 }
 
-// Инициализируем массив для ошибок
 $errors = [];
 
 // 1. Валидация ФИО
@@ -80,12 +77,8 @@ if (empty($gender)) {
     $errors['gender'] = 'Выбран недопустимый вариант пола';
 }
 
-// 6. Валидация языков программирования
-$allowedLanguages = [
-    'Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 
-    'Java', 'Haskell', 'Clojure', 'Prolog', 'Scala', 'Go'
-];
-
+// 6. Валидация языков (список допустимых)
+$allowedLanguages = ['Pascal', 'C', 'C++', 'JavaScript', 'PHP', 'Python', 'Java', 'Haskell', 'Clojure', 'Prolog', 'Scala', 'Go'];
 $languages = $_POST['languages'] ?? [];
 if (empty($languages)) {
     $errors['languages'] = 'Выберите хотя бы один язык программирования';
@@ -98,51 +91,43 @@ if (empty($languages)) {
     }
 }
 
-// 7. Валидация биографии (необязательное поле)
+// 7. Валидация биографии
 $bio = trim($_POST['bio'] ?? '');
 if (strlen($bio) > 1000) {
     $errors['bio'] = 'Биография не должна превышать 1000 символов';
 }
 
-// 8. Валидация чекбокса согласия
+// 8. Валидация чекбокса
 $contractAgreed = $_POST['contract_agreed'] ?? '';
 if (empty($contractAgreed) || $contractAgreed !== '1') {
     $errors['contract_agreed'] = 'Необходимо подтвердить ознакомление с контрактом';
 }
 
-// Если есть ошибки, выводим их и завершаем работу
 if (!empty($errors)) {
     echo '<div class="error-container">';
     echo '<h2>Ошибки валидации:</h2>';
     echo '<ul>';
-    foreach ($errors as $field => $error) {
+    foreach ($errors as $error) {
         echo '<li>' . htmlspecialchars($error) . '</li>';
     }
     echo '</ul>';
-    echo '<a href="index.html" class="back-link">← Вернуться к форме и исправить</a>';
+    echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
     echo '</div>';
     exit();
 }
 
-// СОХРАНЕНИЕ В БД
-
+// Сохранение в БД
 try {
-    // Подключаемся к базе данных
     $pdo = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
         $user,
         $pass,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false
-        ]
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
     
-    // Начинаем транзакцию
     $pdo->beginTransaction();
     
-    // 1. Вставляем данные в таблицу application
+    // 1. Вставляем в таблицу application
     $stmt = $pdo->prepare("
         INSERT INTO application (fullname, phone, email, birthdate, gender, bio, contract_agreed, created_at)
         VALUES (:fullname, :phone, :email, :birthdate, :gender, :bio, :contract_agreed, NOW())
@@ -161,47 +146,27 @@ try {
     // Получаем ID последней вставленной записи
     $applicationId = $pdo->lastInsertId();
     
-    // 2. Вставляем выбранные языки программирования в таблицу связи
-    // Сначала получаем или создаем ID языков
-    $langStmt = $pdo->prepare("SELECT id FROM programming_languages WHERE name = ?");
-    $insertLangStmt = $pdo->prepare("INSERT INTO programming_languages (name) VALUES (?)");
-    $relationStmt = $pdo->prepare("
-        INSERT INTO application_languages (application_id, language_id)
-        VALUES (?, ?)
+    // 2. Вставляем выбранные языки в таблицу application_languages
+    $langStmt = $pdo->prepare("
+        INSERT INTO application_languages (application_id, language_name)
+        VALUES (:application_id, :language_name)
     ");
     
-    foreach ($languages as $langName) {
-        // Проверяем, существует ли язык в таблице
-        $langStmt->execute([$langName]);
-        $lang = $langStmt->fetch();
-        
-        if ($lang) {
-            $languageId = $lang['id'];
-        } else {
-            // Если языка нет, создаем его
-            $insertLangStmt->execute([$langName]);
-            $languageId = $pdo->lastInsertId();
-        }
-        
-        // Создаем связь между заявкой и языком
-        $relationStmt->execute([$applicationId, $languageId]);
+    foreach ($languages as $language) {
+        $langStmt->execute([
+            ':application_id' => $applicationId,
+            ':language_name' => $language
+        ]);
     }
     
-    // Фиксируем транзакцию
     $pdo->commit();
-    
-    // Выводим сообщение об успехе
-    showSuccess('Данные успешно сохранены! Спасибо за заполнение анкеты.');
+    showSuccess('Данные успешно сохранены!');
     
 } catch (PDOException $e) {
-    // Откатываем транзакцию в случае ошибки
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    
-    // Логируем ошибку (в реальном проекте нужно писать в лог-файл)
     error_log("Database error: " . $e->getMessage());
-    
-    showError('Произошла ошибка при сохранении данных. Пожалуйста, попробуйте позже.');
+    showError('Ошибка при сохранении данных');
 }
 ?>
