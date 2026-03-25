@@ -5,7 +5,7 @@ header('Content-Type: text/html; charset=UTF-8');
 $host = 'localhost';
 $dbname = 'u82279';
 $user = 'u82279';
-$pass = 'ВАШ_ПАРОЛЬ';  // Вставьте свой пароль
+$pass = '4483607';  // Вставьте свой пароль
 
 function showError($message) {
     echo '<div class="error-message">❌ ' . htmlspecialchars($message) . '</div>';
