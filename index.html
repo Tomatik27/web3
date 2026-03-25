@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета разработчика</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Регистрационная анкета</h1>
+        <p class="subtitle">Пожалуйста, заполните все поля формы</p>
+
+        <form action="save.php" method="POST" id="registrationForm">
+            <!-- 1. ФИО -->
+            <div class="form-group">
+                <label for="fullname">ФИО <span class="required">*</span></label>
+                <input type="text" id="fullname" name="fullname" 
+                       placeholder="Иванов Иван Иванович"
+                       maxlength="150" 
+                       pattern="^[A-Za-zА-Яа-яЁё\s]+$"
+                       title="Только буквы и пробелы, не более 150 символов"
+                       required>
+            </div>
+
+            <!-- 2. Телефон -->
+            <div class="form-group">
+                <label for="phone">Телефон <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" 
+                       placeholder="+7 (999) 123-45-67"
+                       pattern="^[\+0-9\s\(\)\-]{10,20}$"
+                       title="Введите корректный номер телефона"
+                       required>
+                <small>Формат: +7 (999) 123-45-67</small>
+            </div>
+
+            <!-- 3. E-mail -->
+            <div class="form-group">
+                <label for="email">E-mail <span class="required">*</span></label>
+                <input type="email" id="email" name="email" 
+                       placeholder="ivanov@example.com"
+                       required>
+            </div>
+
+            <!-- 4. Дата рождения -->
+            <div class="form-group">
+                <label for="birthdate">Дата рождения <span class="required">*</span></label>
+                <input type="date" id="birthdate" name="birthdate" required>
+                <small>От 14 до 100 лет</small>
+            </div>
+
+            <!-- 5. Пол (радиокнопки) -->
+            <div class="form-group">
+                <label>Пол <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="male" required> Мужской
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="female"> Женский
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="other"> Другой
+                    </label>
+                </div>
+            </div>
+
+            <!-- 6. Любимый язык программирования (множественный выбор) -->
+            <div class="form-group">
+                <label for="languages">Любимый язык программирования <span class="required">*</span></label>
+                <select name="languages[]" id="languages" multiple size="6" required>
+                    <option value="Pascal">Pascal</option>
+                    <option value="C">C</option>
+                    <option value="C++">C++</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="PHP">PHP</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                    <option value="Haskell">Haskell</option>
+                    <option value="Clojure">Clojure</option>
+                    <option value="Prolog">Prolog</option>
+                    <option value="Scala">Scala</option>
+                    <option value="Go">Go</option>
+                </select>
+            </div>
+
+            <!-- 7. Биография -->
+            <div class="form-group">
+                <label for="bio">Биография</label>
+                <textarea id="bio" name="bio" rows="5" 
+                          placeholder="Расскажите немного о себе..."></textarea>
+                <small>Не более 1000 символов</small>
+            </div>
+
+            <!-- 8. Чекбокс согласия с контрактом -->
+            <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="contract_agreed" value="1" required>
+                    <span>Я ознакомлен(а) с условиями контракта и согласен(на) <span class="required">*</span></span>
+                </label>
+            </div>
+
+            <!-- 9. Кнопка сохранения -->
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
