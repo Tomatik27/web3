@@ -124,3 +124,22 @@ small {
     display: block;
     margin-top: 3px;
 }
+.ajax-message {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ajax-message.success-message {
+    background: #e0f0e8;
+    color: #5a8a6e;
+    border: 1px solid #c0d0b0;
+}
+
+.ajax-message.error-message {
+    background: #ffe8e8;
+    color: #d4a5a5;
+    border: 1px solid #e0bfb0;
+}
