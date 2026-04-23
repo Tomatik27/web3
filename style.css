@@ -133,36 +133,6 @@ textarea {
 
 .field-error {
     display: block;
-<<<<<<< HEAD
-    margin-top: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #dc2626;
-}
-
-.messages {
-    margin-bottom: 24px;
-}
-
-.error-msg {
-    padding: 12px 16px;
-    background: #fef2f2;
-    border-left: 5px solid #ef4444;
-    color: #991b1b;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    font-size: 14px;
-}
-
-.success-msg {
-    padding: 12px 16px;
-    background: #f0fdf4;
-    border-left: 5px solid #22c55e;
-    color: #166534;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    font-size: 14px;
-=======
     margin-top: 3px;
 }
 .ajax-message {
@@ -183,5 +153,4 @@ textarea {
     background: #ffe8e8;
     color: #d4a5a5;
     border: 1px solid #e0bfb0;
->>>>>>> 7dd331e5dda0b5d11ad8a1ac5bb02c018f3af861
 }
