@@ -105,5 +105,65 @@
             </div>
         </form>
     </div>
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Отменяем обычную отправку формы
+    
+    const formData = new FormData(this);
+    const submitBtn = this.querySelector('.submit-btn');
+    const originalBtnText = submitBtn.textContent;
+    
+    // Меняем текст кнопки
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
+    
+    // Удаляем старые сообщения
+    const oldMessage = document.querySelector('.ajax-message');
+    if (oldMessage) oldMessage.remove();
+    
+    // Отправляем AJAX запрос
+    fetch('save.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Создаем контейнер для сообщения
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'ajax-message';
+        
+        // Проверяем что вернул сервер
+        if (data.includes('успешно') || data.includes('✅')) {
+            messageDiv.classList.add('success-message');
+            messageDiv.innerHTML = '✅ Данные успешно сохранены!';
+            this.reset(); // Очищаем форму
+        } else {
+            messageDiv.classList.add('error-message');
+            // Извлекаем текст ошибки
+            const errorMatch = data.match(/❌.*?(?=<|$)/);
+            messageDiv.innerHTML = errorMatch ? errorMatch[0] : '❌ Ошибка при сохранении';
+        }
+        
+        // Вставляем сообщение в начало формы
+        this.insertBefore(messageDiv, this.firstChild);
+        
+        // Возвращаем кнопку
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        
+        // Прокручиваем к сообщению
+        messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })
+    .catch(error => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'ajax-message error-message';
+        messageDiv.innerHTML = '❌ Ошибка соединения с сервером';
+        this.insertBefore(messageDiv, this.firstChild);
+        
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+    });
+});
+</script>
 </body>
 </html>

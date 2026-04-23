@@ -8,15 +8,11 @@ $user = 'u82279';
 $pass = '4483607';  // Вставьте свой пароль
 
 function showError($message) {
-    echo '<div class="error-message">❌ ' . htmlspecialchars($message) . '</div>';
-    echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
-    exit();
+    die('❌ ' . $message);
 }
 
 function showSuccess($message) {
-    echo '<div class="success-message">✅ ' . htmlspecialchars($message) . '</div>';
-    echo '<a href="index.html" class="back-link">← Вернуться к форме</a>';
-    exit();
+    die('✅ ' . $message);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
